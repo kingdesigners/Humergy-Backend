@@ -130,6 +130,7 @@ Route::group(['middleware' => ['auth:sanctum', 'assign_user_role']], function ()
     Route::post('order-save', [Controllers\OrderController::class, 'store']);
     Route::post('order-update/{id}', [Controllers\OrderController::class, 'update']);
     Route::post('assign-order-update', [Controllers\OrderController::class, 'assignOrder']);
+    Route::post('nearest-rider', [Controllers\API\OrderController::class, 'getNearestRider']);
     Route::post('order-delete/{id}', [Controllers\OrderController::class, 'destroy']);
     Route::post('order-action', [Controllers\OrderController::class, 'action']);
     Route::post('order-auto-assign', [Controllers\OrderController::class, 'autoAssignCancelOrder']);
