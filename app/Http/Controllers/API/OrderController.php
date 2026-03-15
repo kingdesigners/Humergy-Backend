@@ -439,6 +439,42 @@ class OrderController extends Controller
         }
         return redirect()->back()->with('success', __('message.status_updated'));
     }
+    public function getNearestRider(Request $request)
+    {
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'radius' => 'nullable|numeric' // Radius in km
+        ]);
+
+        $lat = $request->latitude;
+        $lng = $request->longitude;
+        $radius = $request->radius ?? 10; // default 10km radius
+
+        // Haversine formula to get the nearest riders using SQL for better scalability
+        $nearestDrivers = User::selectRaw(
+                "*, ( 6371 * acos( cos( radians(?) ) *
+                cos( radians( latitude ) )
+                * cos( radians( longitude ) - radians(?)
+                ) + sin( radians(?) ) *
+                sin( radians( latitude ) ) )
+                ) AS distance", [$lat, $lng, $lat]
+            )
+            ->where(['user_type' => 'delivery_man', 'status' => 1])
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance')
+            ->get();
+
+        $response = [
+            'data' => $nearestDrivers,
+            'status' => true,
+        ];
+
+        return json_custom_response($response);
+    }
+
     public function transferDeliverymanOrder($id)
     {
         $order = Order::find($id);
