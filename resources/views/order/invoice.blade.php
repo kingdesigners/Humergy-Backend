@@ -125,7 +125,7 @@
         <table class="items">
             <thead>
                 <tr>
-                    <th class="addresspickupdetails">{{__('message.description')}} ({{ optional($order)->parcel_type }})</th>
+                    <th class="addresspickupdetails">{{__('message.description')}} ({{ optional($order)->service_type }})</th>
                     <th class="addressdetails">{{__('message.price')}}</th>
                 </tr>
             </thead>

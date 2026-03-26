@@ -111,14 +111,14 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-md-4" id="parcel_type">
-                                                    {{ html()->label(__('message.parcel_type') . ' <span class="text-danger">*</span>', 'parcel_type')->class('form-control-label') }}
-                                                    {{ html()->text('parcel_type', old('parcel_type'))
-                                                        ->id('parcel_type_text')
+                                                <div class="form-group col-md-4" id="service_type">
+                                                    {{ html()->label(__('message.service_type') . ' <span class="text-danger">*</span>', 'service_type')->class('form-control-label') }}
+                                                    {{ html()->text('service_type', old('service_type'))
+                                                        ->id('service_type_text')
                                                         ->placeholder(__('message.name'))
                                                         ->class('form-control')
                                                         ->attribute('required', true) }}
-                                                    <div class="row ml-3" id="parcel_type_container" style="display: none;">
+                                                    <div class="row ml-3" id="service_type_container" style="display: none;">
                                                         @foreach ($staticData as $key)
                                                             <div class="m-1 border border-secondary pl-1 pr-1 mr-1 default-hidden rounded" onclick="setParcelType('{{ $key->label }}')" style="cursor: pointer;">{{ $key->label }}</div>
                                                         @endforeach
@@ -136,8 +136,8 @@
                                                 </div>
 
                                                 <div class="form-group col-md-4">
-                                                    {{ html()->label(__('message.number_of_parcels') . ' <span class="text-danger">*</span>', 'total_parcel')->class('form-control-label') }}
-                                                    {{ html()->number('total_parcel', $data->total_distance ?? null)
+                                                    {{ html()->label(__('message.number_of_parcels') . ' <span class="text-danger">*</span>', 'total_service_requests')->class('form-control-label') }}
+                                                    {{ html()->number('total_service_requests', $data->total_distance ?? null)
                                                         ->class('form-control')
                                                         ->attribute('min', 0)
                                                         ->attribute('step', 'any')
@@ -394,9 +394,9 @@
                             required: true,
                             greaterThanEqual: '#delivery_start_time'
                         },
-                        parcel_type: { required: true },
+                        service_type: { required: true },
                         total_weight: { required: true },
-                        total_parcel: { required: true },
+                        total_service_requests: { required: true },
                         parcel_description: { required: true },
                         country_id: { required: true },
                         city_id: { required: true },
@@ -422,9 +422,9 @@
                             required: "{{ __('message.to_date_required') }}",
                             greaterThanEqual: "{{ __('message.to_time_must_be_greater_than_from_time') }}"
                         },
-                        parcel_type: { required: "{{__('message.please_select_parcel_type')}}"},
+                        service_type: { required: "{{__('message.please_select_service_type')}}"},
                         total_weight: { required: "{{__('message.please_enter_total_weight')}}"},
-                        total_parcel: { required: "{{__('message.please_enter_total_parcel')}}"},
+                        total_service_requests: { required: "{{__('message.please_enter_total_service_requests')}}"},
                         parcel_description: { required: "{{__('message.please_enter_parcel_description')}}"},
                         country_id: { required: "{{__('message.please_select_country')}}"},
                         city_id: { required: "{{__('message.please_select_city')}}"},
@@ -828,15 +828,15 @@
             updateDisplayValues();
 
             function setParcelType(label) {
-                document.getElementById('parcel_type_text').value = label;
+                document.getElementById('service_type_text').value = label;
             }
 
-            $("#parcel_type").mouseover(function() {
-                $("#parcel_type_container").show();
+            $("#service_type").mouseover(function() {
+                $("#service_type_container").show();
             });
 
-            $("#parcel_type").mouseleave(function() {
-                $("#parcel_type_container").hide();
+            $("#service_type").mouseleave(function() {
+                $("#service_type_container").hide();
             })
 
         </script>

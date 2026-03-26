@@ -83,16 +83,16 @@
                                                 <h4 class="card-title mb-2 font-weight-bold">{{ __('message.parcel_details') }}</h4>
                                                 <div class="card card-block">
                                                     <div class="col-md-12">
-                                                        <h6 class="card-title mb-2 mt-2 float-left">{{ __('message.parcel_type') }}</h6>
-                                                        <p class="mb-2 mt-2 float-right">{{ isset($data->parcel_type) ? $data->parcel_type : '-' }}</p>
+                                                        <h6 class="card-title mb-2 mt-2 float-left">{{ __('message.service_type') }}</h6>
+                                                        <p class="mb-2 mt-2 float-right">{{ isset($data->service_type) ? $data->service_type : '-' }}</p>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <h6 class="card-title mb-2 mt-2 float-left">{{ __('message.total_weight') }}</h6>
                                                         <p class="mb-2 mt-2 float-right">{{ isset($data->total_weight) ? $data->total_weight : '-' }} {{optional($data->country)->weight_type}}</p>
                                                     </div>
                                                     <div class="col-md-12">
-                                                        <h6 class="card-title mb-2 mt-2 float-left">{{ __('message.total_parcel') }}</h6>
-                                                        <p class="mb-2 mt-2 float-right">{{ isset($data->total_parcel) ? $data->total_parcel : '-' }}</p>
+                                                        <h6 class="card-title mb-2 mt-2 float-left">{{ __('message.total_service_requests') }}</h6>
+                                                        <p class="mb-2 mt-2 float-right">{{ isset($data->total_service_requests) ? $data->total_service_requests : '-' }}</p>
                                                     </div>
                                                 </div>
                                             </div>

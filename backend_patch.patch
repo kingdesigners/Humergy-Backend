@@ -1,0 +1,136 @@
+diff --git a/app/Http/Resources/OrderDetailResource.php b/app/Http/Resources/OrderDetailResource.php
+index ee8a99b..95f018a 100644
+--- a/app/Http/Resources/OrderDetailResource.php
++++ b/app/Http/Resources/OrderDetailResource.php
+@@ -44,7 +44,7 @@ class OrderDetailResource extends JsonResource
+             'country_name'                  => optional($this->country)->name,
+             'city_id'                       =>(int) $this->city_id,
+             'city_name'                     => optional($this->city)->name,
+-            'parcel_type'                   => $this->parcel_type,
++            'service_type'                   => $this->service_type,
+             'total_weight'                  => $this->total_weight,
+             'weight_charge'                 => $this->weight_charge,
+             'distance_charge'               => $this->distance_charge,
+@@ -65,7 +65,7 @@ class OrderDetailResource extends JsonResource
+             'fixed_charges'                 => $this->fixed_charges,
+             'extra_charges'                 => $this->extra_charges,
+             'total_amount'                  => $this->total_amount,
+-            'total_parcel'                  => $this->total_parcel,
++            'total_service_requests'                  => $this->total_service_requests,
+             'reason'                        => $this->reason,
+             'pickup_confirm_by_client'      => $this->pickup_confirm_by_client,
+             'pickup_confirm_by_delivery_man' => $this->pickup_confirm_by_delivery_man,
+diff --git a/app/Http/Resources/OrderResource.php b/app/Http/Resources/OrderResource.php
+index b03132d..9afe7f7 100644
+--- a/app/Http/Resources/OrderResource.php
++++ b/app/Http/Resources/OrderResource.php
+@@ -37,7 +37,7 @@ class OrderResource extends JsonResource
+             'country_name'                  => optional($this->country)->name,
+             'city_id'                       => (int)$this->city_id,
+             'city_name'                     => optional($this->city)->name,
+-            'parcel_type'                   => $this->parcel_type,
++            'service_type'                   => $this->service_type,
+             'total_weight'                  => $this->total_weight,
+             'total_distance'                => $this->total_distance,
+             'weight_charge'                 => $this->weight_charge,
+@@ -58,7 +58,7 @@ class OrderResource extends JsonResource
+             'extra_charges'                 => $this->extra_charges,
+             'total_amount'                  => $this->total_amount,
+             'insurance_charge'              => $this->insurance_charge,
+-            'total_parcel'                  => $this->total_parcel,
++            'total_service_requests'                  => $this->total_service_requests,
+             'reason'                        => $this->reason,
+             'pickup_confirm_by_client'      => $this->pickup_confirm_by_client,
+             'pickup_confirm_by_delivery_man' => $this->pickup_confirm_by_delivery_man,
+diff --git a/app/Imports/ImportOrderdata.php b/app/Imports/ImportOrderdata.php
+index b74e9dd..0b86a83 100644
+--- a/app/Imports/ImportOrderdata.php
++++ b/app/Imports/ImportOrderdata.php
+@@ -37,7 +37,7 @@ class ImportOrderdata implements ToModel, WithHeadingRow
+         ];
+         $order = new Order([
+             'client_id' => auth()->user()->id,
+-            'parcel_type' => $row['parcel_type'] ?? null,
++            'service_type' => $row['service_type'] ?? null,
+             'weight' => $row['weight'] ?? null,
+             'number_of_parcel' => $row['number_of_parcel'] ?? null,
+             'country_id' => $row['country_id'] ?? null,
+diff --git a/app/Models/Order.php b/app/Models/Order.php
+index ca57f49..cf90231 100644
+--- a/app/Models/Order.php
++++ b/app/Models/Order.php
+@@ -22,7 +22,7 @@ class Order extends Model implements HasMedia
+         'delivery_point',
+         'country_id',
+         'city_id',
+-        'parcel_type',
++        'service_type',
+         'total_weight',
+         'total_distance',
+         'pickup_datetime',
+@@ -43,7 +43,7 @@ class Order extends Model implements HasMedia
+         'weight_charge',
+         'distance_charge',
+         'insurance_charge',
+-        'total_parcel',
++        'total_service_requests',
+         'auto_assign',
+         'cancelled_delivery_man_ids',
+         'vehicle_id',
+@@ -88,7 +88,7 @@ class Order extends Model implements HasMedia
+         'pickup_confirm_by_client' => 'integer',
+         'pickup_confirm_by_delivery_man' => 'integer',
+         'auto_assign' => 'integer',
+-        'total_parcel' => 'integer',
++        'total_service_requests' => 'integer',
+         'vehicle_id' => 'integer',
+         // 'pickup_point' => 'array',
+         // 'delivery_point' => 'array',
+diff --git a/database/migrations/2026_05_01_000000_rename_parcel_fields_to_service_fields_in_orders_table.php b/database/migrations/2026_05_01_000000_rename_parcel_fields_to_service_fields_in_orders_table.php
+new file mode 100644
+index 0000000..69fdd94
+--- /dev/null
++++ b/database/migrations/2026_05_01_000000_rename_parcel_fields_to_service_fields_in_orders_table.php
+@@ -0,0 +1,39 @@
++<?php
++
++use Illuminate\Database\Migrations\Migration;
++use Illuminate\Database\Schema\Blueprint;
++use Illuminate\Support\Facades\Schema;
++
++class RenameParcelFieldsToServiceFieldsInOrdersTable extends Migration
++{
++    /**
++     * Run the migrations.
++     *
++     * @return void
++     */
++    public function up()
++    {
++        Schema::table('orders', function (Blueprint $table) {
++            if (Schema::hasColumn('orders', 'parcel_type')) {
++                $table->renameColumn('parcel_type', 'service_type');
++            }
++            if (Schema::hasColumn('orders', 'total_parcel')) {
++                $table->renameColumn('total_parcel', 'total_service_requests');
++            }
++        });
++    }
++
++    /**
++     * Reverse the migrations.
++     *
++     * @return void
++     */
++    public function down()
++    {
++        Schema::table('orders', function (Blueprint $table) {
++            if (Schema::hasColumn('orders', 'service_type')) {
++                $table->renameColumn('service_type', 'parcel_type');
++            }
++            if (Schema::hasColumn('orders', 'total_service_requests')) {
++                $table->renameColumn('total_service_requests', 'total_parcel');
++            }
++        });
++    }
++}

@@ -45,7 +45,7 @@ class ImportOrderdata implements ToModel, WithHeadingRow
         ];
         $order = new Order([
             'client_id' => auth()->user()->id,
-            'parcel_type' => $row['parcel_type'] ?? null,
+            'service_type' => $row['service_type'] ?? null,
             'weight' => $row['weight'] ?? null,
             'number_of_parcel' => $row['number_of_parcel'] ?? null,
             'country_id' => $row['country_id'] ?? null,

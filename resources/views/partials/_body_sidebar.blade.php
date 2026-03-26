@@ -558,7 +558,7 @@
                 ->link->attr(['class' => '']);
 
             $menu
-                ->add('<span>' . __('message.parceltype') . '</span>', ['class' => ''])
+                ->add('<span>' . __('message.servicetype') . '</span>', ['class' => ''])
                 ->prepend('<i class="fa-sharp fa fa-box"></i>')
                 ->nickname('staticdata')
                 ->data('permission', 'staticdata-list')
@@ -566,7 +566,7 @@
                 ->href('#staticdata');
 
             $menu->staticdata
-                ->add('<span>' . __('message.list_form_title', ['form' => __('message.parceltype')]) . '</span>', [
+                ->add('<span>' . __('message.list_form_title', ['form' => __('message.servicetype')]) . '</span>', [
                     'class' => 'sidebar-layout',
                     'route' => 'staticdata.index',
                 ])

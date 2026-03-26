@@ -21,11 +21,11 @@ class StaticDataController extends Controller
             $message = __('message.demo_permission_denied');
             return redirect()->back()->withErrors($message);
         }
-        $pageTitle = __('message.list_form_title',['form' => __('message.parceltype')] );
+        $pageTitle = __('message.list_form_title',['form' => __('message.servicetype')] );
         $auth_user = authSession();
         $assets = ['datatable'];
 
-        $button = $auth_user->can('staticdata-add') ? '<a href="'.route('staticdata.create').'" class="float-right btn btn-sm btn-primary jqueryvalidationLoadRemoteModel"><i class="fa fa-plus-circle"></i> '.__('message.add_form_title',['form' => __('message.parceltype')]).'</a>' : '';
+        $button = $auth_user->can('staticdata-add') ? '<a href="'.route('staticdata.create').'" class="float-right btn btn-sm btn-primary jqueryvalidationLoadRemoteModel"><i class="fa fa-plus-circle"></i> '.__('message.add_form_title',['form' => __('message.servicetype')]).'</a>' : '';
 
         return $dataTable->render('global.datatable', compact('pageTitle','button','auth_user'));
     }
@@ -41,7 +41,7 @@ class StaticDataController extends Controller
             $message = __('message.demo_permission_denied');
             return redirect()->back()->withErrors($message);
         }
-        $pageTitle =  __('message.parceltype');
+        $pageTitle =  __('message.servicetype');
 
         return view('staticdata.form', compact('pageTitle'));
     }
@@ -59,9 +59,9 @@ class StaticDataController extends Controller
         $data['value'] = strtolower(str_replace(' ', '_',$data['label']));
 
         $staticData = StaticData::updateOrCreate(['id' => $request->id], $data);
-        $message = __('message.update_form',[ 'form' => __('message.parceltype') ] );
+        $message = __('message.update_form',[ 'form' => __('message.servicetype') ] );
         if($staticData->wasRecentlyCreated){
-            $message = __('message.save_form',[ 'form' => __('message.parceltype') ] );
+            $message = __('message.save_form',[ 'form' => __('message.servicetype') ] );
         }
 
         if ($request->is('api/*')) {
@@ -94,7 +94,7 @@ class StaticDataController extends Controller
             $message = __('message.demo_permission_denied');
             return redirect()->back()->withErrors($message);
         }
-        $pageTitle = __('message.update_form_title',[ 'form' => __('message.parceltype')]);
+        $pageTitle = __('message.update_form_title',[ 'form' => __('message.servicetype')]);
         $data = StaticData::findOrFail($id);
 
         return view('staticdata.form', compact('data', 'pageTitle', 'id'));
@@ -116,7 +116,7 @@ class StaticDataController extends Controller
         $staticdata = StaticData::find($id);
 
         if ($staticdata === null) {
-            $message = __('message.not_found_entry', ['name' => __('message.parceltype')]);
+            $message = __('message.not_found_entry', ['name' => __('message.servicetype')]);
 
             return redirect()->back()->withErrors($message);
         }
@@ -124,7 +124,7 @@ class StaticDataController extends Controller
         $data = $request->all();
         $data['value'] = strtolower(str_replace(' ', '_', $data['label']));
 
-        $message = __('message.update_form', ['form' => __('message.parceltype')]);
+        $message = __('message.update_form', ['form' => __('message.servicetype')]);
 
         $staticdata->update($data);
 
@@ -161,12 +161,12 @@ class StaticDataController extends Controller
         }
         $staticdata = StaticData::find($id);
         $status = 'error';
-        $message = __('message.not_found_entry', ['name' => __('message.parceltype')]);
+        $message = __('message.not_found_entry', ['name' => __('message.servicetype')]);
 
         if($staticdata != '') {
             $staticdata->delete();
             $status = 'success';
-            $message = __('message.delete_form', ['form' => __('message.parceltype')]);
+            $message = __('message.delete_form', ['form' => __('message.servicetype')]);
         }
 
         if(request()->is('api/*')){

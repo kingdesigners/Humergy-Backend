@@ -44,7 +44,7 @@ class StaticDataRequest  extends FormRequest
     public function messages()
     {
         return [
-            'label.required'    => 'The Parcel Type field is required.',
+            'label.required'    => 'The Service Type field is required.',
         ];
     }
     /**
