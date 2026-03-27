@@ -23,6 +23,7 @@ class Order extends Model implements HasMedia
         'country_id',
         'city_id',
         'service_type',
+        'service_id',
         'total_weight',
         'total_distance',
         'pickup_datetime',
@@ -306,4 +307,10 @@ class Order extends Model implements HasMedia
     {
         return $this->belongsTo(UserAddress::class, 'client_id', 'user_id');
     }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
 }
