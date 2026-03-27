@@ -409,7 +409,7 @@ class HomeController extends Controller
 
             // Filter drivers by proximity
             $driversInZone = $drivers->filter(function ($driver) use ($lat, $lng, $distanceLimit) {
-                $distance = 6371 * acos(
+                $distance = 3959 * acos(
                     cos(deg2rad($lat)) * cos(deg2rad($driver->latitude)) *
                     cos(deg2rad($driver->longitude) - deg2rad($lng)) +
                     sin(deg2rad($lat)) * sin(deg2rad($driver->latitude))
