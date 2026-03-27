@@ -318,7 +318,7 @@ class RestApiController extends Controller
                 'message' => 'Unable to calculate distance. Please try again later.',
             ];
         }
-        $distance = $distanceResponse['rows'][0]['elements'][0]['distance']['value'] / 1000;
+        $distance = $distanceResponse['rows'][0]['elements'][0]['distance']['value'] / 1609.34;
         $effectiveDistance = max(0, $distance - $city->min_distance);
         $distanceCharge = $effectiveDistance * $city->per_distance_charges;
 
@@ -370,7 +370,7 @@ class RestApiController extends Controller
         }
 
 
-        $distance = $distanceResponse['rows'][0]['elements'][0]['distance']['value'] / 1000;
+        $distance = $distanceResponse['rows'][0]['elements'][0]['distance']['value'] / 1609.34;
 
         $effectiveDistance = max(0, $distance - $city->min_distance);
         $totalDistanceCharges = $effectiveDistance * $city->per_distance_charges;

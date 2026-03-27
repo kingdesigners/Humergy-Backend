@@ -76,7 +76,7 @@ class OrderController extends Controller
                 $query->where('status', 'create')
                       ->where('city_id', $authUser->city_id)
                       ->whereRaw("
-                          6371 * acos(
+                          3959 * acos(
                               cos(radians(?)) * cos(radians(JSON_UNQUOTE(JSON_EXTRACT(pickup_point, '$.latitude'))))
                               * cos(radians(JSON_UNQUOTE(JSON_EXTRACT(pickup_point, '$.longitude'))) - radians(?))
                               + sin(radians(?)) * sin(radians(JSON_UNQUOTE(JSON_EXTRACT(pickup_point, '$.latitude'))))
@@ -453,7 +453,7 @@ class OrderController extends Controller
 
         // Haversine formula to get the nearest riders using SQL for better scalability
         $nearestDrivers = User::selectRaw(
-                "*, ( 6371 * acos( cos( radians(?) ) *
+                "*, ( 3959 * acos( cos( radians(?) ) *
                 cos( radians( latitude ) )
                 * cos( radians( longitude ) - radians(?)
                 ) + sin( radians(?) ) *

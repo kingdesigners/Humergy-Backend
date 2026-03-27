@@ -15,8 +15,8 @@ class AddOtpVerifyOnPickupDelivery extends Migration
     {
         Schema::table('app_settings', function (Blueprint $table) {
             $table->tinyInteger('otp_verify_on_pickup_delivery')->after('distance')->nullable()->default('1');
-            $table->string('currency')->after('otp_verify_on_pickup_delivery')->nullable();
-            $table->string('currency_code')->after('currency')->nullable();
+            $table->string('currency')->after('otp_verify_on_pickup_delivery')->nullable()->default('$');
+            $table->string('currency_code')->after('currency')->nullable()->default('USD');
             $table->string('currency_position')->after('currency_code')->nullable();
         });
     }
