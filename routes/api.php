@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('save-external-order', [API\RestApiController::class, 'store']);
 Route::get('get-code', [API\RestApiController::class, 'getCount']);
+Route::get('services', [API\ServiceController::class, 'index']);
 Route::post('new-register', [API\UserController::class, 'newregister']);
 Route::post('driver-register', [API\UserController::class, 'driverRegister']);
 Route::post('new-login', [API\UserController::class, 'newlogin']);
