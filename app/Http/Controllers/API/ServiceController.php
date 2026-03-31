@@ -15,6 +15,7 @@ class ServiceController extends Controller
             [
                 'id' => 1,
                 'title' => 'Regular 87',
+                'label' => 'Regular 87',
                 'value' => 'regular_87',
                 'status' => 1,
                 'image' => $baseUrl . 'fuel_87.png',
@@ -23,6 +24,7 @@ class ServiceController extends Controller
             [
                 'id' => 2,
                 'title' => 'Mid-grade 89',
+                'label' => 'Mid-grade 89',
                 'value' => 'mid_grade_89',
                 'status' => 1,
                 'image' => $baseUrl . 'fuel_89.png',
@@ -31,6 +33,7 @@ class ServiceController extends Controller
             [
                 'id' => 3,
                 'title' => 'Premium 93',
+                'label' => 'Premium 93',
                 'value' => 'premium_93',
                 'status' => 1,
                 'image' => $baseUrl . 'fuel_93.png',
@@ -39,6 +42,7 @@ class ServiceController extends Controller
             [
                 'id' => 4,
                 'title' => 'Diesel',
+                'label' => 'Diesel',
                 'value' => 'diesel',
                 'status' => 1,
                 'image' => $baseUrl . 'fuel_diesel.png',
