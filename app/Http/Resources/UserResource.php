@@ -76,6 +76,8 @@ class UserResource extends JsonResource
             'vehicle_id'  => $this->vehicle_id,
             'DeliverymanVehicleHistory' => $courier_companies_detail,
             'average_rating' => count($this->rating) > 0 ? (float) number_format(max($this->rating->avg('rating'),0), 2) : 0,
+            'plan_type' => 'Founders',
+            'fuel_balance' => 50.0,
         ];
     }
 }
